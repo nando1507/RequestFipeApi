@@ -1,0 +1,15 @@
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\bin\Debug\CapturaFipe.exe.config
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\bin\Debug\CapturaFipe.exe
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\bin\Debug\CapturaFipe.pdb
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\obj\Debug\CapturaFipe.FrmConsulta.resources
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\obj\Debug\CapturaFipe.Properties.Resources.resources
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\obj\Debug\CapturaFipe.csproj.GenerateResource.cache
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\obj\Debug\CapturaFipe.csproj.CoreCompileInputs.cache
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\obj\Debug\CapturaFipe.csproj.CopyComplete
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\obj\Debug\CapturaFipe.exe
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\obj\Debug\CapturaFipe.pdb
+C:\Users\nando\source\repos\CapturaFipe\CapturaFipe\obj\Debug\CapturaFipe.csprojAssemblyReference.cache
