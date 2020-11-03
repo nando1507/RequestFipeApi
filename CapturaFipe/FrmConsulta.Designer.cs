@@ -37,6 +37,7 @@
             this.btnValores = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDados)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -111,7 +112,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sairToolStripMenuItem});
+            this.sairToolStripMenuItem,
+            this.processarToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -124,6 +126,13 @@
             this.sairToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
+            // 
+            // processarToolStripMenuItem
+            // 
+            this.processarToolStripMenuItem.Name = "processarToolStripMenuItem";
+            this.processarToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.processarToolStripMenuItem.Text = "Processar";
+            this.processarToolStripMenuItem.Click += new System.EventHandler(this.processarToolStripMenuItem_Click);
             // 
             // FrmConsulta
             // 
@@ -162,6 +171,7 @@
         private System.Windows.Forms.Button btnValores;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processarToolStripMenuItem;
     }
 }
 

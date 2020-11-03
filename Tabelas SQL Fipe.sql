@@ -42,7 +42,7 @@
 --	NuAnoModelo Int,
 --	VlrPrecoPeriodo	Numeric(15,2),
 --	NmKey Varchar(100),
---	HrValorPeriodo time,
+--	HrValorPeriodo float,
 --	NmVeiculo Varchar(1000),
 --	CdPeriodo Varchar(100),
 --	cdModelo int,
@@ -66,9 +66,9 @@
 
 
 
-Select *from Periodo
-where cdmarca = 6 and cdmodelo = 134
-order by cdMarca desc, cdmodelo desc, idperiodo
+--Select *from Periodo
+--where cdmarca = 6 and cdmodelo = 134
+--order by cdMarca desc, cdmodelo desc, idperiodo
 
 
 
@@ -85,10 +85,61 @@ order by cdMarca desc, cdmodelo desc, idperiodo
 
 
 
-Select A.cdMarca, cdModelo, idPeriodo from Periodo A with (nolock)
-left join Modelos B with (nolock)
-	on A.cdModelo = b.IdModelo
-left join Marcas C With (Nolock)
-	on A.cdMarca = c.idMarca
-Order by A.cdMarca, cdModelo
+--Select A.cdMarca, cdModelo, idPeriodo from Periodo A with (nolock)
+--left join Modelos B with (nolock)
+--	on A.cdModelo = b.IdModelo
+--left join Marcas C With (Nolock)
+--	on A.cdMarca = c.idMarca
+--Order by A.cdMarca, cdModelo
 
+
+--{"referencia": "novembro de 2020", 
+--"fipe_codigo": "038003-2",
+--"name": "Integra GS 1.8", 
+--"combustivel": "Gasolina", 
+--"marca": "Acura", 
+--"ano_modelo": "1992", 
+--"preco": "R$ 11.021,00", 
+--"key": "integra-1992", 
+--"time": 0.009999999999990905, 
+--"veiculo": "Integra GS 1.8", 
+--"id": "1992"}
+
+
+Select* from Modelos A With (Nolock)
+inner join Marcas B With (Nolock)
+	on a.CdMarca = b.idMarca	
+left join Periodo C With (Nolock)
+	on A.CdMarca = C.cdMarca
+	and A.IdModelo = c.cdModelo
+left join ValorPeriodo D With (Nolock)
+	on D.cdMarca = C.cdmarca
+	and D.CdModelo = C.cdModelo
+	and D.cdPeriodo = C.idPeriodo
+where b.NmMarca like '%volks%'
+and A.NmModelo like '%Fox%plus%'
+
+
+Select* from Modelos A With (Nolock)
+inner join Marcas B With (Nolock)
+	on a.CdMarca = b.idMarca	
+left join Periodo C With (Nolock)
+	on A.CdMarca = C.cdMarca
+	and A.IdModelo = c.cdModelo
+left join ValorPeriodo D With (Nolock)
+	on D.cdMarca = C.cdmarca
+	and D.CdModelo = C.cdModelo
+	and D.cdPeriodo = C.idPeriodo
+where b.NmMarca like '%volks%'
+and A.NmModelo like '%Fox%plus%'
+and c.NmPeriodo like '%2006%'
+
+
+
+
+Select A.cdMarca, cdModelo, idPeriodo from Periodo A with (nolock)
+                                                    left join Modelos B with (nolock)
+	                                                    on A.cdModelo = b.IdModelo
+                                                    left join Marcas C With (Nolock)
+	                                                    on A.cdMarca = c.idMarca
+                                                    Order by A.cdMarca, cdModelo

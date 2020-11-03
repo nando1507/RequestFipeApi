@@ -52,6 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Connection.cs" />
+    <Compile Include="Class\Marca.cs" />
+    <Compile Include="Class\Modelo.cs" />
+    <Compile Include="Class\Periodo.cs" />
+    <Compile Include="Class\Valor.cs" />
     <Compile Include="FrmConsulta.cs">
       <SubType>Form</SubType>
     </Compile>

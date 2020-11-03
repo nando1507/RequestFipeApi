@@ -25,13 +25,12 @@ namespace CapturaFipe
          * Necessidade:
          * Capturar dados da tabela fipe
          * Como fazer:
-         * Modelos http://fipeapi.appspot.com/api/1/carros/marcas.json
+         * Marcas http://fipeapi.appspot.com/api/1/carros/marcas.json
          * Veiculos http://fipeapi.appspot.com/api/1/carros/veiculos/1.json
          * periodo http://fipeapi.appspot.com/api/1/carros/veiculo/1/2.json         
          * Valores http://fipeapi.appspot.com/api/1/carros/veiculo/21/4828/2013-1.json
          */
         string URI = string.Empty;
-
 
 
         public class fipeMarcas
@@ -96,8 +95,6 @@ namespace CapturaFipe
             */
         }
 
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -116,6 +113,7 @@ namespace CapturaFipe
                     if (response.IsSuccessStatusCode)
                     {
                         var ProdutoJsonString = await response.Content.ReadAsStringAsync();
+                        //ProdutoJsonString = ProdutoJsonString.ToUpper();
                         dgvDados.DataSource = JsonConvert.DeserializeObject<fipeMarcas[]>(ProdutoJsonString).ToList();
                     }
                     else
@@ -146,10 +144,10 @@ namespace CapturaFipe
             {
                 cmd.Parameters.Clear();
 
-                cmd.Parameters.AddWithValue("@idMarca", dgvDados.Rows[i].Cells["id"].Value.ToString());
-                cmd.Parameters.AddWithValue("@NmMarca", dgvDados.Rows[i].Cells["name"].Value.ToString());
-                cmd.Parameters.AddWithValue("@NmMarcaFipe", dgvDados.Rows[i].Cells["fipe_name"].Value.ToString());
-                cmd.Parameters.AddWithValue("@NmKey", dgvDados.Rows[i].Cells["key"].Value.ToString());
+                cmd.Parameters.AddWithValue("@idMarca", dgvDados.Rows[i].Cells["id"].Value.ToString().ToUpper());
+                cmd.Parameters.AddWithValue("@NmMarca", dgvDados.Rows[i].Cells["name"].Value.ToString().ToUpper());
+                cmd.Parameters.AddWithValue("@NmMarcaFipe", dgvDados.Rows[i].Cells["fipe_name"].Value.ToString().ToUpper());
+                cmd.Parameters.AddWithValue("@NmKey", dgvDados.Rows[i].Cells["key"].Value.ToString().ToUpper());
 
 
                 try
@@ -167,7 +165,6 @@ namespace CapturaFipe
                     conn.Close();
                 }
             }
-
 
             dgvDados.DataSource = null;
 
@@ -192,6 +189,7 @@ namespace CapturaFipe
                         if (response.IsSuccessStatusCode)
                         {
                             var ProdutoJsonString = await response.Content.ReadAsStringAsync();
+                            //ProdutoJsonString = ProdutoJsonString.ToUpper();
                             dgvDados.DataSource = JsonConvert.DeserializeObject<fipeModelos[]>(ProdutoJsonString).ToList();
                         }
                         else
@@ -217,10 +215,10 @@ namespace CapturaFipe
                 {
                     iModelos.Parameters.Clear();
 
-                    iModelos.Parameters.AddWithValue("@IdModelo", dgvDados.Rows[j].Cells["id"].Value.ToString());
-                    iModelos.Parameters.AddWithValue("@NmModelo", dgvDados.Rows[j].Cells["name"].Value.ToString());
-                    iModelos.Parameters.AddWithValue("@NmModeloFipe", dgvDados.Rows[j].Cells["fipe_marca"].Value.ToString());
-                    iModelos.Parameters.AddWithValue("@NmKey", dgvDados.Rows[j].Cells["key"].Value.ToString());
+                    iModelos.Parameters.AddWithValue("@IdModelo", dgvDados.Rows[j].Cells["id"].Value.ToString().ToUpper());
+                    iModelos.Parameters.AddWithValue("@NmModelo", dgvDados.Rows[j].Cells["name"].Value.ToString().ToUpper());
+                    iModelos.Parameters.AddWithValue("@NmModeloFipe", dgvDados.Rows[j].Cells["fipe_marca"].Value.ToString().ToUpper());
+                    iModelos.Parameters.AddWithValue("@NmKey", dgvDados.Rows[j].Cells["key"].Value.ToString().ToUpper());
                     iModelos.Parameters.AddWithValue("@CdMarca", id);
                     try
                     {
@@ -236,14 +234,12 @@ namespace CapturaFipe
                         MessageBox.Show(ex.StackTrace.ToString(), ex.Message.ToString());
                         conn.Close();
                     }
-
                 }
                 lblLinhas.Text = Convert.ToString(Convert.ToInt32(lblLinhas.Text) + (int)dgvDados.Rows.Count);
 
                 dgvDados.DataSource = null;
-                //Thread.Sleep(2000);
+                Thread.Sleep(1000);
             }
-
         }
 
         private async void GetAllPeriodo()
@@ -265,6 +261,7 @@ namespace CapturaFipe
                         if (response.IsSuccessStatusCode)
                         {
                             var ProdutoJsonString = await response.Content.ReadAsStringAsync();
+                            //ProdutoJsonString = ProdutoJsonString.ToUpper();
                             dgvDados.DataSource = JsonConvert.DeserializeObject<fipePeriodo[]>(ProdutoJsonString).ToList();
                         }
                         else
@@ -290,10 +287,9 @@ namespace CapturaFipe
                 {
                     iPeriodo.Parameters.Clear();
 
-                    iPeriodo.Parameters.AddWithValue("@idPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["id"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["id"].Value.ToString());
-                    iPeriodo.Parameters.AddWithValue("@NmPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["name"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["name"].Value.ToString());
-                    //iPeriodo.Parameters.AddWithValue("@NmCodigoFipe", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["fipe_marca"].Value) ? Convert.DBNull : dgvDados.Rows[j].Cells["fipe_marca"].Value.ToString());
-                    iPeriodo.Parameters.AddWithValue("@NmKey", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["key"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["key"].Value.ToString());
+                    iPeriodo.Parameters.AddWithValue("@idPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["id"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["id"].Value.ToString().ToUpper());
+                    iPeriodo.Parameters.AddWithValue("@NmPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["name"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["name"].Value.ToString().ToUpper());
+                    iPeriodo.Parameters.AddWithValue("@NmKey", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["key"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["key"].Value.ToString().ToUpper());
                     iPeriodo.Parameters.AddWithValue("@cdModelo", idModelo);
                     iPeriodo.Parameters.AddWithValue("@cdMarca", idMarca);
                     try
@@ -346,7 +342,7 @@ namespace CapturaFipe
                         if (response.IsSuccessStatusCode)
                         {
                             var ProdutoJsonString = await response.Content.ReadAsStringAsync();
-                            var aux = JsonConvert.DeserializeObject<fipeValores[]>(ProdutoJsonString).ToList();
+                            ProdutoJsonString = (ProdutoJsonString.Substring(0, 1) != "[" ? "[" : "") + ProdutoJsonString + (ProdutoJsonString.Substring(ProdutoJsonString.Length - 1, 1) != "]" ? "]" : "");
                             dgvDados.DataSource = JsonConvert.DeserializeObject<fipeValores[]>(ProdutoJsonString).ToList();
                         }
                         else
@@ -356,7 +352,7 @@ namespace CapturaFipe
                     }
                 }
 
-                SqlCommand iPeriodo = new SqlCommand(@"INSERT INTO [dbo].[ValorPeriodo]    ([idValorPeriodo]
+                SqlCommand iValores = new SqlCommand(@"INSERT INTO [dbo].[ValorPeriodo]    ([idValorPeriodo]
                                                                                            ,[NmReferencia]
                                                                                            ,[NmFipeCodigo]
                                                                                            ,[NmModelo]
@@ -387,21 +383,30 @@ namespace CapturaFipe
                                                                                            ,@cdMarca)", conn);
                 for (int j = 0; j < dgvDados.Rows.Count; j++)
                 {
-                    iPeriodo.Parameters.Clear();
+                    iValores.Parameters.Clear();
 
-                    iPeriodo.Parameters.AddWithValue("@idPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["id"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["id"].Value.ToString());
-                    iPeriodo.Parameters.AddWithValue("@NmPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["name"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["name"].Value.ToString());
-                    //iPeriodo.Parameters.AddWithValue("@NmCodigoFipe", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["fipe_marca"].Value) ? Convert.DBNull : dgvDados.Rows[j].Cells["fipe_marca"].Value.ToString());
-                    iPeriodo.Parameters.AddWithValue("@NmKey", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["key"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["key"].Value.ToString());
-                    iPeriodo.Parameters.AddWithValue("@cdModelo", idModelo);
-                    iPeriodo.Parameters.AddWithValue("@cdMarca", idMarca);
+                    iValores.Parameters.AddWithValue("@idValorPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["id"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["id"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmReferencia", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["referencia"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["referencia"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmFipeCodigo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["fipe_codigo"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["fipe_codigo"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmModelo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["name"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["name"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmCombustivel", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["combustivel"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["combustivel"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmMarca", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["marca"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["marca"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NuAnoModelo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["ano_modelo"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["ano_modelo"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@VlrPrecoPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["preco"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["preco"].Value.ToString().Replace("R$ ", "").Replace(".", "").Replace(",", ".").Trim().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmKey", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["key"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["key"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@HrValorPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["time"].Value.ToString()) ? Convert.DBNull : (float)dgvDados.Rows[j].Cells["time"].Value);
+                    iValores.Parameters.AddWithValue("@NmVeiculo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["veiculo"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["veiculo"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@CdPeriodo", idPeriodo);
+                    iValores.Parameters.AddWithValue("@cdModelo", idModelo);
+                    iValores.Parameters.AddWithValue("@cdMarca", idMarca);
+
                     try
                     {
                         if (conn.State != ConnectionState.Open)
                         {
                             conn.Open();
                         }
-                        iPeriodo.ExecuteNonQuery();
+                        iValores.ExecuteNonQuery();
                         conn.Close();
                     }
                     catch (Exception ex)
@@ -409,12 +414,11 @@ namespace CapturaFipe
                         MessageBox.Show(ex.StackTrace.ToString(), ex.Message.ToString());
                         conn.Close();
                     }
-
                 }
                 lblLinhas.Text = Convert.ToString(Convert.ToInt32(lblLinhas.Text) + (int)dgvDados.Rows.Count);
 
                 dgvDados.DataSource = null;
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
             }
 
 
@@ -445,6 +449,14 @@ namespace CapturaFipe
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void processarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.GetAllMarcas();
+            this.GetAllModelos();
+            this.GetAllPeriodo();
+            this.GetAllValores();
         }
     }
 }
