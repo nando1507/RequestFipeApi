@@ -143,3 +143,7 @@ Select A.cdMarca, cdModelo, idPeriodo from Periodo A with (nolock)
                                                     left join Marcas C With (Nolock)
 	                                                    on A.cdMarca = c.idMarca
                                                     Order by A.cdMarca, cdModelo
+
+
+
+													Select * from ValorPeriodo

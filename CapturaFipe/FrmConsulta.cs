@@ -319,11 +319,17 @@ namespace CapturaFipe
         private async void GetAllValores()
         {
             lblLinhas.Text = "0";
-            SqlCommand cmdMarcas = new SqlCommand(@"Select A.cdMarca, cdModelo, idPeriodo from Periodo A with (nolock)
+            SqlCommand cmdMarcas = new SqlCommand(@"Select A.cdMarca, A.cdModelo, A.idPeriodo from Periodo A with (nolock)
                                                     left join Modelos B with (nolock)
 	                                                    on A.cdModelo = b.IdModelo
                                                     left join Marcas C With (Nolock)
 	                                                    on A.cdMarca = c.idMarca
+                                                    where not exists (	
+	                                                    Select 1 from ValorPeriodo X
+		                                                    where A.idPeriodo = x.CdPeriodo
+		                                                    and A.cdMarca = x.cdMarca
+		                                                    and A.cdModelo = x.cdModelo
+                                                    )
                                                     Order by A.cdMarca, cdModelo", conn);
             cmdMarcas.CommandTimeout = 5000;
             da.SelectCommand = cmdMarcas;
@@ -385,17 +391,17 @@ namespace CapturaFipe
                 {
                     iValores.Parameters.Clear();
 
-                    iValores.Parameters.AddWithValue("@idValorPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["id"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["id"].Value.ToString().ToUpper());
-                    iValores.Parameters.AddWithValue("@NmReferencia", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["referencia"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["referencia"].Value.ToString().ToUpper());
-                    iValores.Parameters.AddWithValue("@NmFipeCodigo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["fipe_codigo"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["fipe_codigo"].Value.ToString().ToUpper());
-                    iValores.Parameters.AddWithValue("@NmModelo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["name"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["name"].Value.ToString().ToUpper());
-                    iValores.Parameters.AddWithValue("@NmCombustivel", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["combustivel"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["combustivel"].Value.ToString().ToUpper());
-                    iValores.Parameters.AddWithValue("@NmMarca", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["marca"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["marca"].Value.ToString().ToUpper());
-                    iValores.Parameters.AddWithValue("@NuAnoModelo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["ano_modelo"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["ano_modelo"].Value.ToString().ToUpper());
-                    iValores.Parameters.AddWithValue("@VlrPrecoPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["preco"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["preco"].Value.ToString().Replace("R$ ", "").Replace(".", "").Replace(",", ".").Trim().ToUpper());
-                    iValores.Parameters.AddWithValue("@NmKey", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["key"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["key"].Value.ToString().ToUpper());
-                    iValores.Parameters.AddWithValue("@HrValorPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["time"].Value.ToString()) ? Convert.DBNull : (float)dgvDados.Rows[j].Cells["time"].Value);
-                    iValores.Parameters.AddWithValue("@NmVeiculo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["veiculo"].Value.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["veiculo"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@idValorPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["id"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["id"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmReferencia", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["referencia"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["referencia"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmFipeCodigo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["fipe_codigo"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["fipe_codigo"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmModelo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["name"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["name"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmCombustivel", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["combustivel"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["combustivel"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmMarca", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["marca"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["marca"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@NuAnoModelo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["ano_modelo"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["ano_modelo"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@VlrPrecoPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["preco"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["preco"].Value.ToString().Replace("R$ ", "").Replace(".", "").Replace(",", ".").Trim().ToUpper());
+                    iValores.Parameters.AddWithValue("@NmKey", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["key"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["key"].Value.ToString().ToUpper());
+                    iValores.Parameters.AddWithValue("@HrValorPeriodo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["time"].Value?.ToString()) ? Convert.DBNull : (float)dgvDados.Rows[j].Cells["time"].Value);
+                    iValores.Parameters.AddWithValue("@NmVeiculo", String.IsNullOrEmpty(dgvDados.Rows[j].Cells["veiculo"].Value?.ToString()) ? Convert.DBNull : dgvDados.Rows[j].Cells["veiculo"].Value.ToString().ToUpper());
                     iValores.Parameters.AddWithValue("@CdPeriodo", idPeriodo);
                     iValores.Parameters.AddWithValue("@cdModelo", idModelo);
                     iValores.Parameters.AddWithValue("@cdMarca", idMarca);
